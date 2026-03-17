@@ -16,7 +16,7 @@
         body {
             background-color: var(--bg-dark);
             color: white;
-            font-family: sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding-top: 80px;
         }
@@ -29,26 +29,60 @@
             box-sizing: border-box; border-bottom: 1px solid var(--border); z-index: 1000;
         }
         nav .logo { color: var(--emerald); font-weight: bold; font-size: 1.2rem; }
-        nav .links a { color: var(--text-gray); text-decoration: none; margin-left: 20px; font-size: 0.9rem; }
+        nav .links a { color: var(--text-gray); text-decoration: none; margin-left: 20px; font-size: 0.9rem; transition: 0.3s; }
+        nav .links a:hover { color: var(--emerald); }
+
         .container { max-width: 1000px; margin: auto; padding: 2rem; }
-        .hero { display: flex; align-items: center; justify-content: space-between; min-height: 60vh; gap: 40px; flex-wrap: wrap; }
-        .hero-text h1 { font-size: 4rem; margin: 0; }
-        .hero-text h2 { color: var(--emerald); font-size: 1.8rem; }
-        .btn {
-            padding: 12px 24px; border-radius: 8px; text-decoration: none; 
-            font-weight: bold; border: 1px solid var(--emerald); display: inline-block; cursor: pointer;
+        
+        /* --- Hero --- */
+        .hero { display: flex; align-items: center; justify-content: space-between; min-height: 70vh; gap: 40px; flex-wrap: wrap; }
+        .hero-text { flex: 1; min-width: 300px; }
+        .hero-text h1 { font-size: 5rem; margin: 0; }
+        .hero-text h2 { color: var(--emerald); font-size: 2rem; margin: 10px 0; }
+        
+        /* --- Floating Robot --- */
+        .robot-circle {
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, #064e3b 0%, #020817 80%);
+            border-radius: 50%; display: flex; align-items: center; 
+            justify-content: center; border: 1px solid #065f46;
+            animation: float 4s ease-in-out infinite;
         }
-        .btn-primary { background: var(--emerald); color: #000; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* --- Project Cards & Hover --- */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 40px; }
         .project-card { 
             background: var(--card-bg); border: 1px solid var(--border); 
-            padding: 25px; border-radius: 12px; text-decoration: none; color: inherit; display: block;
+            padding: 30px; border-radius: 12px; text-decoration: none; color: inherit; 
+            display: block; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        .project-card:hover { 
+            border-color: var(--emerald); 
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+        }
+
+        .btn {
+            padding: 12px 24px; border-radius: 8px; text-decoration: none; 
+            font-weight: bold; border: 1px solid var(--emerald); display: inline-block; 
+            cursor: pointer; transition: 0.3s;
+        }
+        .btn-primary { background: var(--emerald); color: #000; }
+        .btn-primary:hover { box-shadow: 0 0 20px rgba(16, 185, 129, 0.6); }
+
         .tag { background: #1e293b; color: var(--emerald); padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; margin-right: 5px; }
-        .vault-section { margin-top: 80px; padding: 40px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); text-align: center; }
-        .ai-section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 40px; margin-top: 50px; text-align: center; }
-        .chip { background: #1e293b; border: 1px solid var(--border); color: white; padding: 10px 15px; border-radius: 30px; cursor: pointer; display: inline-block; margin: 5px; }
-        #ai-answer-box { margin-top: 20px; padding: 20px; background: #020817; border-radius: 8px; border-left: 4px solid var(--emerald); display: none; text-align: left; }
+        
+        .vault-section { margin-top: 100px; padding: 60px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); text-align: center; }
+        .ai-section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 50px; margin-top: 50px; text-align: center; }
+        
+        .chip { background: #1e293b; border: 1px solid var(--border); color: white; padding: 10px 18px; border-radius: 30px; cursor: pointer; display: inline-block; margin: 6px; transition: 0.3s; font-size: 0.85rem; }
+        .chip:hover { border-color: var(--emerald); background: rgba(16, 185, 129, 0.1); }
+        
+        #ai-answer-box { margin-top: 25px; padding: 25px; background: #020817; border-radius: 10px; border-left: 4px solid var(--emerald); display: none; text-align: left; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -66,10 +100,28 @@
     <div class="container">
         <section id="hero" class="hero">
             <div class="hero-text">
+                <p style="color: var(--emerald); font-weight: bold; letter-spacing: 2px;">[ 1ST YEAR COLLEGE | ENTHUSIAST ]</p>
                 <h1>Arav</h1>
                 <h2>Robotics, Cyber & Data</h2>
-                <p style="color: var(--text-gray); line-height: 1.6;">Exploring the intersection of Autonomous Robotics, Cyber Awareness, and Data Science. I secure systems and optimize machine intelligence.</p>
-                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <p style="color: var(--text-gray); line-height: 1.8;">
+                    I am a tech innovator bridging the gap between hardware and software security. 
+                    My focus lies in <b>Autonomous Systems</b> (ROS2/LiDAR), <b>Defensive Cybersecurity</b>, 
+                    and <b>Data Science</b> analytics. I build machines that are as secure as they are intelligent, 
+                    ensuring that future robotics can operate safely in unpredictable environments.
+                </p>
+                <a href="#projects" class="btn btn-primary">Enter Projects</a>
+            </div>
+            <div class="robot-circle">
+                <svg width="180" height="180" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.2">
+                    <path d="M12 5V1" /> <circle cx="12" cy="1" r="0.5" fill="#10b981" /> 
+                    <rect x="8" y="5" width="8" height="6" rx="1.5" /> 
+                    <circle cx="10.5" cy="8" r="0.7" fill="#10b981" /> 
+                    <circle cx="13.5" cy="8" r="0.7" fill="#10b981" /> 
+                    <rect x="6" y="11" width="12" height="9" rx="2" /> 
+                    <path d="M6 13c-2 1-3 4-2 7" /> 
+                    <path d="M18 13c2 1 3 4 2 7" /> 
+                    <circle cx="12" cy="15" r="1.5" stroke-opacity="0.5" />
+                </svg>
             </div>
         </section>
 
@@ -78,36 +130,43 @@
             <div class="grid">
                 <div class="project-card">
                     <h3>Autonomous Rover</h3>
-                    <p style="color: var(--text-gray)">LiDAR-based SLAM navigation in ROS2 environment.</p>
-                    <span class="tag">ROS2</span><span class="tag">Hardware</span>
+                    <p style="color: var(--text-gray)">LiDAR-based SLAM navigation in ROS2 environment. Designed for precision terrain traversal and mapping.</p>
+                    <span class="tag">ROS2</span><span class="tag">Embedded</span>
                 </div>
-                <a href="#vault" class="project-card" style="border-color: var(--emerald);">
+                <a href="#vault" class="project-card" style="border-color: rgba(16, 185, 129, 0.4);">
                     <h3>Neural Crypt Vault</h3>
-                    <p style="color: var(--text-gray)">Live password analyzer using entropy logic. Click to try it.</p>
-                    <span class="tag">Defense</span><span class="tag">JS</span>
+                    <p style="color: var(--text-gray)">A live security utility utilizing Shannon Entropy logic to determine password crack-time and strength.</p>
+                    <span class="tag">Cybersec</span><span class="tag">JS Engine</span>
                 </a>
                 <div class="project-card">
                     <h3>Log-Data Analyzer</h3>
-                    <p style="color: var(--text-gray)">Anomaly detection using Data Science libraries.</p>
-                    <span class="tag">Data Sci</span><span class="tag">Python</span>
+                    <p style="color: var(--text-gray)">Utilizing Python (Pandas/NumPy) to detect anomaly patterns in server logs for early threat detection.</p>
+                    <span class="tag">Data Science</span><span class="tag">Python</span>
                 </div>
             </div>
         </section>
 
         <section id="vault" class="vault-section">
             <h2 style="color: var(--emerald)">[ NEURAL_CRYPT_VAULT ]</h2>
-            <input type="password" id="vault-input" placeholder="Enter Password..." oninput="runVault()" 
-                   style="width: 80%; padding: 12px; background: #020817; border: 1px solid var(--border); color: var(--emerald); border-radius: 5px; outline: none;">
-            <div id="vault-bar" style="height: 5px; width: 0%; background: red; margin: 15px auto; max-width: 80%; transition: 0.3s;"></div>
-            <p id="vault-status" style="color: var(--text-gray);">Status: Waiting...</p>
+            <p style="color: var(--text-gray); margin-bottom: 30px;">Input credentials for real-time cryptographic analysis.</p>
+            <div style="max-width: 400px; margin: 0 auto; background: #020817; padding: 30px; border-radius: 12px; border: 1px solid var(--border);">
+                <input type="password" id="vault-input" placeholder="Initiate Secure Input..." oninput="runVault()" 
+                       style="width: 100%; padding: 12px; background: transparent; border: 1px solid var(--border); color: var(--emerald); border-radius: 5px; outline: none; box-sizing: border-box;">
+                <div id="vault-bar" style="height: 5px; width: 0%; background: #ef4444; margin-top: 15px; border-radius: 10px; transition: 0.3s;"></div>
+                <p id="vault-status" style="font-size: 0.8rem; margin-top: 10px; color: var(--text-gray);">Status: Offline</p>
+            </div>
         </section>
 
         <section id="ai" class="ai-section">
             <h2>AI Mission Control</h2>
+            <p style="color: var(--text-gray)">System Inquiry: Select a module to explore my technical vision.</p>
             <div class="question-chips">
-                <div class="chip" onclick="askBot('robot')">Securing Robots</div>
-                <div class="chip" onclick="askBot('data')">Data & Cyber</div>
-                <div class="chip" onclick="askBot('vision')">My Vision</div>
+                <div class="chip" onclick="askBot('robot')">Securing Robotics</div>
+                <div class="chip" onclick="askBot('data')">Data Science & Cyber</div>
+                <div class="chip" onclick="askBot('vision')">1st Year Vision</div>
+                <div class="chip" onclick="askBot('tools')">Preferred Tools</div>
+                <div class="chip" onclick="askBot('ethics')">Cyber Ethics</div>
+                <div class="chip" onclick="askBot('future')">Next Big Project?</div>
             </div>
             <div id="ai-answer-box"><p id="bot-text"></p></div>
         </section>
@@ -122,20 +181,26 @@
             if (p.length > 8) score++;
             if (/[0-9]/.test(p)) score++;
             if (/[^A-Za-z0-9]/.test(p)) score++;
-            if (p.length === 0) { b.style.width = "0%"; s.innerText = "Status: Waiting..."; return; }
-            if (score == 0) { b.style.width = "20%"; b.style.background = "red"; s.innerText = "Status: Weak"; }
-            if (score == 1) { b.style.width = "50%"; b.style.background = "orange"; s.innerText = "Status: Moderate"; }
-            if (score >= 2) { b.style.width = "100%"; b.style.background = "#10b981"; s.innerText = "Status: Secure"; }
+            if (p.length === 0) { b.style.width = "0%"; s.innerText = "Status: Offline"; return; }
+            if (score == 0) { b.style.width = "20%"; b.style.background = "#ef4444"; s.innerText = "Status: High Vulnerability"; }
+            if (score == 1) { b.style.width = "50%"; b.style.background = "#f59e0b"; s.innerText = "Status: Moderate Risk"; }
+            if (score >= 2) { b.style.width = "100%"; b.style.background = "#10b981"; s.innerText = "Status: Fully Secure"; }
         }
 
         function askBot(topic) {
-            document.getElementById('ai-answer-box').style.display = "block";
+            const box = document.getElementById('ai-answer-box');
+            const text = document.getElementById('bot-text');
+            box.style.display = "block";
             const res = {
-                'robot': "I use encrypted communication layers to prevent robot hijacking.",
-                'data': "I analyze network logs to find hidden security threats.",
-                'vision': "I aim to build the world's most secure autonomous systems."
+                'robot': "I secure robots by hardening ROS2 communication nodes and implementing hardware-level encryption for sensory data.",
+                'data': "I use Data Science to find the 'signal in the noise'—identifying hidden cyber threats by analyzing massive amounts of system log data.",
+                'vision': "I'm a 1st-year student on a mission to prove that autonomous machines can be made un-hackable through better design.",
+                'tools': "My daily stack: Python for Data/Cyber, C++ for Robotics, and Linux for everything else.",
+                'ethics': "In Cybersecurity, I follow the 'White Hat' philosophy: building tools that protect people and secure the digital future.",
+                'future': "I'm currently designing a LiDAR rover that can detect if its own software has been tampered with while in transit."
             };
-            document.getElementById('bot-text').innerText = "> " + (res[topic] || "Ready.");
+            text.innerText = "> " + (res[topic] || "System Ready.");
+            box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     </script>
 </body>
