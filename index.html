@@ -53,7 +53,7 @@
         .btn {
             padding: 12px 24px; border-radius: 8px; text-decoration: none; 
             font-weight: bold; transition: all 0.3s ease; border: 1px solid var(--emerald);
-            display: inline-block;
+            display: inline-block; cursor: pointer;
         }
         .btn-primary { background: var(--emerald); color: #000; }
         .btn-outline { background: transparent; color: var(--emerald); }
@@ -84,6 +84,7 @@
         .project-card { 
             background: var(--card-bg); border: 1px solid var(--border); 
             padding: 30px; border-radius: 12px; transition: all 0.3s ease;
+            text-decoration: none; color: inherit; display: block;
         }
         .project-card:hover { 
             border-color: var(--emerald); 
@@ -110,125 +111,3 @@
     <nav>
         <div class="logo">晶 ARAV</div>
         <div class="links">
-            <a href="#hero">Home</a>
-            <a href="#projects">Projects</a>
-            <a href="#vault">Live Lab</a>
-            <a href="#ai">AI Bot</a>
-            <a href="mailto:your-email@example.com" class="btn btn-outline" style="margin-left:25px; padding: 8px 15px; font-size: 0.8rem;">Contact Me</a>
-        </div>
-    </nav>
-
-    <div class="container">
-        
-        <section id="hero" class="hero">
-            <div class="hero-text">
-                <p style="color: var(--emerald); font-weight: bold; letter-spacing: 2px;">[ 1ST YEAR COLLEGE | ENTHUSIAST ]</p>
-                <h1>Arav</h1>
-                <h2>Robotics, Cyber & Data</h2>
-                <p>
-                    I am a 1st-year college student and a multifaceted <b>tech enthusiast</b>. My work sits at the intersection of 
-                    <b>Autonomous Robotics</b>, <b>Cybersecurity Awareness</b>, and <b>Data Science</b>. I don't just build hardware; 
-                    I focus on securing robotic systems against vulnerabilities and leveraging data to optimize machine intelligence.
-                </p>
-                <div class="hero-btns">
-                    <a href="#projects" class="btn btn-primary">View Projects</a>
-                    <a href="#ai" class="btn btn-outline">Ask AI Bot</a>
-                </div>
-            </div>
-            
-            <div class="hero-image">
-                <div class="robot-circle">
-                    <svg width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.2">
-                        <path d="M12 5V1" /> <circle cx="12" cy="1" r="0.5" fill="#10b981" /> 
-                        <rect x="8" y="5" width="8" height="6" rx="1.5" /> 
-                        <circle cx="10.5" cy="8" r="0.7" fill="#10b981" /> 
-                        <circle cx="13.5" cy="8" r="0.7" fill="#10b981" /> 
-                        <rect x="6" y="11" width="12" height="9" rx="2" /> 
-                        <path d="M6 13c-2 1-3 4-2 7" /> 
-                        <path d="M18 13c2 1 3 4 2 7" /> 
-                        <circle cx="12" cy="15" r="1.5" stroke-opacity="0.5" />
-                    </svg>
-                </div>
-            </div>
-        </section>
-
-        <section id="projects">
-            <h1 style="color: var(--emerald)">Project Labs</h1>
-            <div class="grid">
-                <div class="project-card">
-                    <h3>Autonomous Rover</h3>
-                    <p style="color: var(--text-gray)">LiDAR-based SLAM navigation in ROS2 environment. Designed for precision terrain traversal.</p>
-                    <div style="margin-top: 15px;"><span class="tag">ROS2</span><span class="tag">Hardware</span></div>
-                </div>
-                <div class="project-card">
-                    <h3>Cyber-Audit Tool</h3>
-                    <p style="color: var(--text-gray)">Network vulnerability scanner built with Python to detect open ports and service banners.</p>
-                    <div style="margin-top: 15px;"><span class="tag">Cybersec</span><span class="tag">Python</span></div>
-                </div>
-                <div class="project-card">
-                    <h3>Secure Vault & Entropy</h3>
-                    <p style="color: var(--text-gray)">A security suite analyzing password strength using Regex and Shannon Entropy logic.</p>
-                    <div style="margin-top: 15px;"><span class="tag">Cryptography</span><span class="tag">Data Logic</span></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="vault" style="margin-top: 100px; padding: 60px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border);">
-            <h2 style="color: var(--emerald); text-align: center;">Live Lab: Password Analyzer</h2>
-            <p style="text-align: center; color: var(--text-gray); margin-bottom: 30px;">Test your password strength against my logic engine.</p>
-            <div style="max-width: 400px; margin: 0 auto; background: #020817; padding: 30px; border-radius: 12px; border: 1px solid var(--border);">
-                <input type="password" id="vault-input" placeholder="Type a password..." oninput="runVault()" 
-                       style="width: 100%; padding: 12px; background: transparent; border: 1px solid var(--border); color: var(--emerald); border-radius: 5px; outline: none; box-sizing: border-box;">
-                <div id="vault-bar" style="height: 5px; width: 0%; background: #ef4444; margin-top: 15px; border-radius: 10px; transition: 0.3s;"></div>
-                <p id="vault-status" style="font-size: 0.8rem; margin-top: 10px; color: var(--text-gray);">Strength: Empty</p>
-            </div>
-        </section>
-
-        <section id="ai" class="ai-section">
-            <h2>AI Mission Control</h2>
-            <p style="color: var(--text-gray)">Select a category to query my technical background.</p>
-            <div class="question-chips">
-                <div class="chip" onclick="askBot('robotics_sec')">Robot Security</div>
-                <div class="chip" onclick="askBot('data_science')">Data Science</div>
-                <div class="chip" onclick="askBot('awareness')">Cyber Awareness</div>
-                <div class="chip" onclick="askBot('stack')">Full Tech Stack</div>
-            </div>
-            <div id="ai-answer-box">
-                <p id="bot-text"></p>
-            </div>
-        </section>
-
-    </div>
-
-    <script>
-        function runVault() {
-            const p = document.getElementById('vault-input').value;
-            const b = document.getElementById('vault-bar');
-            const s = document.getElementById('vault-status');
-            let score = 0;
-            if (p.length > 8) score++;
-            if (/[0-9]/.test(p)) score++;
-            if (/[^A-Za-z0-9]/.test(p)) score++;
-            if (p.length === 0) { b.style.width = "0%"; s.innerText = "Strength: Empty"; return; }
-            if (score == 0) { b.style.width = "20%"; b.style.background = "#ef4444"; s.innerText = "Status: Weak"; }
-            if (score == 1) { b.style.width = "50%"; b.style.background = "#f59e0b"; s.innerText = "Status: Vulnerable"; }
-            if (score == 2) { b.style.width = "80%"; b.style.background = "#3b82f6"; s.innerText = "Status: Moderate"; }
-            if (score == 3) { b.style.width = "100%"; b.style.background = "#10b981"; s.innerText = "Status: Secure"; }
-        }
-
-        function askBot(topic) {
-            const box = document.getElementById('ai-answer-box');
-            const text = document.getElementById('bot-text');
-            box.style.display = "block";
-            const responses = {
-                'robotics_sec': "I focus on the security of robotic communication protocols (like ROS2) to prevent unauthorized control or sensory data hijacking in autonomous systems.",
-                'data_science': "I use Python libraries like Pandas and NumPy to analyze system logs and sensor data, identifying patterns that help improve robotic efficiency and detect anomalies.",
-                'awareness': "Beyond technical skills, I am a huge advocate for Cyber Awareness—educating users about phishing, social engineering, and the importance of hardware-level encryption.",
-                'stack': "My stack includes Python (Data/Cyber), C++ (Robotics), ROS2, Linux (Ubuntu/Kali), and modern web technologies for secure interfaces."
-            };
-            text.innerText = "> " + (responses[topic] || "System Ready.");
-            box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-    </script>
-</body>
-</html>
