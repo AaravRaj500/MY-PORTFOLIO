@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arav | Robotics & Cyber Portfolio</title>
+    <title>Arav | Robotics, Cyber & Data</title>
     <style>
         :root {
             --bg-dark: #020817;
@@ -43,7 +43,8 @@
         .container { max-width: 1000px; margin: auto; padding: 2rem; }
 
         /* --- Hero Section --- */
-        .hero { display: flex; align-items: center; justify-content: space-between; min-height: 75vh; gap: 40px; }
+        .hero { display: flex; align-items: center; justify-content: space-between; min-height: 75vh; gap: 40px; flex-wrap: wrap; }
+        .hero-text { flex: 1; min-width: 300px; }
         .hero-text h1 { font-size: 5rem; margin: 0; line-height: 1; }
         .hero-text h2 { color: var(--emerald); font-size: 1.8rem; margin: 15px 0; }
         .hero-text p { color: var(--text-gray); max-width: 580px; line-height: 1.8; margin-bottom: 40px; font-size: 1rem; }
@@ -67,7 +68,7 @@
 
         /* --- Robot Styling --- */
         .robot-circle {
-            width: 350px; height: 350px;
+            width: 300px; height: 300px;
             background: radial-gradient(circle, #064e3b 0%, #020817 80%);
             border-radius: 50%; display: flex; align-items: center; 
             justify-content: center; border: 1px solid #065f46;
@@ -79,8 +80,9 @@
             50% { transform: translateY(-15px); }
         }
 
-        /* --- Project Cards --- */
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
+        /* --- Project Grid --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 40px; }
+        
         .project-card { 
             background: var(--card-bg); border: 1px solid var(--border); 
             padding: 30px; border-radius: 12px; transition: all 0.3s ease;
@@ -94,13 +96,14 @@
 
         .tag { background: #1e293b; color: var(--emerald); padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; margin-right: 5px; }
 
+        /* --- Vault Section --- */
+        .vault-section { margin-top: 100px; padding: 60px 20px; background: var(--card-bg); border-radius: 20px; border: 1px solid var(--border); text-align: center; }
+        .vault-box { max-width: 400px; margin: 0 auto; background: #020817; padding: 30px; border-radius: 12px; border: 1px solid var(--border); }
+
         /* --- AI Section --- */
         .ai-section { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 50px; margin-top: 50px; text-align: center; }
         .question-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 30px; }
-        .chip {
-            background: #1e293b; border: 1px solid var(--border); color: white;
-            padding: 10px 20px; border-radius: 30px; cursor: pointer; transition: 0.3s;
-        }
+        .chip { background: #1e293b; border: 1px solid var(--border); color: white; padding: 10px 20px; border-radius: 30px; cursor: pointer; transition: 0.3s; }
         .chip:hover { border-color: var(--emerald); background: rgba(16, 185, 129, 0.1); }
         #ai-answer-box { margin-top: 30px; padding: 25px; background: #020817; border-radius: 8px; border-left: 4px solid var(--emerald); display: none; text-align: left; }
 
@@ -111,3 +114,55 @@
     <nav>
         <div class="logo">晶 ARAV</div>
         <div class="links">
+            <a href="#hero">Home</a>
+            <a href="#projects">Labs</a>
+            <a href="#vault">Vault</a>
+            <a href="#ai">Ask AI</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <section id="hero" class="hero">
+            <div class="hero-text">
+                <p style="color: var(--emerald); font-weight: bold; letter-spacing: 2px;">[ 1ST YEAR COLLEGE | ENTHUSIAST ]</p>
+                <h1>Arav</h1>
+                <h2>Robotics, Cyber & Data</h2>
+                <p>
+                    Exploring the intersection of <b>Autonomous Robotics</b>, <b>Cyber Awareness</b>, and <b>Data Science</b>. I focus on securing robotic systems and leveraging data patterns to optimize machine intelligence.
+                </p>
+                <div class="hero-btns">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="mailto:your-email@example.com" class="btn btn-outline">Contact Me</a>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <div class="robot-circle">
+                    <svg width="180" height="180" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.2">
+                        <path d="M12 5V1" /> <circle cx="12" cy="1" r="0.5" fill="#10b981" /> 
+                        <rect x="8" y="5" width="8" height="6" rx="1.5" /> 
+                        <circle cx="10.5" cy="8" r="0.7" fill="#10b981" /> 
+                        <circle cx="13.5" cy="8" r="0.7" fill="#10b981" /> 
+                        <rect x="6" y="11" width="12" height="9" rx="2" /> 
+                        <path d="M6 13c-2 1-3 4-2 7" /> 
+                        <path d="M18 13c2 1 3 4 2 7" /> 
+                        <circle cx="12" cy="15" r="1.5" stroke-opacity="0.5" />
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h1 style="color: var(--emerald)">Project Labs</h1>
+            <div class="grid">
+                <div class="project-card">
+                    <h3>Autonomous Rover</h3>
+                    <p style="color: var(--text-gray)">LiDAR-based SLAM navigation in ROS2 environment. Designed for precision terrain traversal.</p>
+                    <div style="margin-top: 15px;"><span class="tag">ROS2</span><span class="tag">Hardware</span></div>
+                </div>
+
+                <a href="#vault" class="project-card">
+                    <h3>Neural Crypt Vault</h3>
+                    <p style="color: var(--text-gray)">
+                        
