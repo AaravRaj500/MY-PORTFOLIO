@@ -903,40 +903,91 @@ document.getElementById('vrun').addEventListener('click',()=>{
 });
 document.getElementById('vpwd').addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('vrun').click()});
 
-/* ─── AI — Claude API ─── */
-const PERSONA=`You are an AI assistant on Arav Raj's portfolio website. Arav is a CS engineering student from Bokaro, India, with a passion for robotics, cybersecurity, and data science.
+/* ─── AI — LOCAL KNOWLEDGE ENGINE (no API key needed, works on GitHub Pages) ─── */
+const KB=[
+  {
+    keys:['rover','lidar','slam','ros','autonomous','robot','mapping','navigation','terrain'],
+    ans:`The Autonomous Rover is Arav's most technically complex project. It uses LiDAR-based SLAM in ROS2 to build a real-time map of unknown terrain while simultaneously localising itself within it — then runs A* path planning for collision-free traversal. The core logic is written in C++ as custom ROS2 nodes, with sensor fusion tying together the LiDAR point cloud data and odometry.`
+  },
+  {
+    keys:['crypt','vault','password','entropy','strength','crack','brute','force','neural'],
+    ans:`The Neural Crypt Vault is a live password security engine — you can try it in the Vault section above. It calculates entropy from charset size and password length, then estimates real crack time assuming 10 billion guesses per second (modern GPU benchmark). It's built in pure JavaScript with zero dependencies, which means it runs fully client-side with no data ever sent anywhere.`
+  },
+  {
+    keys:['log','analyzer','anomaly','server','threat','detection','ddos','pandas','pipeline'],
+    ans:`The Log-Data Analyzer is a Python pipeline that ingests raw server logs and statistically flags anomaly patterns — DDoS traffic signatures, brute-force login bursts, and abnormal access sequences. It uses Pandas for high-speed data wrangling and a statistical thresholding model for detection. This project directly applies Arav's IIT Kanpur Cybersecurity coursework to a real-world defensive security use case.`
+  },
+  {
+    keys:['cs50','harvard','computer science','intro','hbs','pset'],
+    ans:`Arav completed Harvard's CS50: Introduction to Computer Science — the most-enrolled CS course on the planet. He worked through problem sets in C (pointers, memory, hash tables), Python, SQL, and Flask, building a rigorous low-level foundation before moving into specialised domains. It's where he first got serious about programming beyond high school CS.`
+  },
+  {
+    keys:['cs50 cyber','cybersecurity harvard','harvard cyber','cs50x cyber','security harvard'],
+    ans:`Arav is about 70% through Harvard's CS50: Introduction to Cybersecurity. It covers cryptography, network security, web vulnerabilities (XSS, SQL injection, CSRF), authentication systems, and ethical hacking methodology. He's applying the concepts directly to the Neural Crypt Vault and Log-Data Analyzer in real time.`
+  },
+  {
+    keys:['gen ai','generative','llm','gpt','diffusion','prompt','iit kanpur ai','kanpur ai','completed ai'],
+    ans:`Arav completed IIT Kanpur's Generative AI course — covering the architecture of large language models, diffusion model pipelines, retrieval-augmented generation (RAG), and prompt engineering. Being from IIT Kanpur, it's a rigorous academic treatment, not a surface-level overview. He's now looking at how to integrate AI-driven decision-making into autonomous systems — which is where things get really interesting.`
+  },
+  {
+    keys:['iit kanpur cyber','kanpur security','kanpur cybersecurity','completed cyber','iit kanpur'],
+    ans:`Arav completed IIT Kanpur's Cybersecurity program — a more advanced academic track than CS50 Cyber. It covers intrusion detection systems, digital forensics, malware analysis, secure coding practices, and India-specific threat landscapes. Combined with his Log-Data Analyzer project, he can point to direct application of everything he learned.`
+  },
+  {
+    keys:['iit madras','data science','bs','degree','statistics','ml','machine learning','year 1','first year'],
+    ans:`Arav is in Year 1 of IIT Madras's BS in Data Science & Applications — a fully accredited 4-year degree programme (not a MOOC certificate). It covers statistics, machine learning, data engineering, databases, and computational thinking. Most people don't realise this is a genuine IIT degree with the same brand weight as an on-campus programme. He's about 25% through Year 1 right now.`
+  },
+  {
+    keys:['course','courses','study','learning','education','enrolled','currently','doing','taking','what study'],
+    ans:`Arav has completed Harvard CS50 Computer Science, IIT Kanpur Generative AI, and IIT Kanpur Cybersecurity. He's currently active on two fronts: Harvard CS50 Cybersecurity (~70% done) and IIT Madras BS in Data Science (Year 1, ~25%). Five programmes total, running alongside his CS engineering degree — the output is three live projects and a skill stack that spans robotics, security, and data science.`
+  },
+  {
+    keys:['python','c++','javascript','sql','bash','language','code','programming','stack'],
+    ans:`Arav's primary language is Python (~80%) — used across all three projects for data pipelines, anomaly detection, and scripting. He writes C/C++ for ROS2 embedded and robotics work, JavaScript for browser-side security tools like the Vault, and SQL from his CS50 and IIT Madras coursework. Bash rounds out the Linux workflow. Everything is practical, not just academic.`
+  },
+  {
+    keys:['skill','tech','tools','expertise','proficiency','what know','what can'],
+    ans:`Arav's technical profile spans four domains: Languages (Python, C/C++, JavaScript, SQL, Bash), Robotics & Systems (ROS2, LiDAR/SLAM, Embedded, Path Planning), Security (Cryptography, Network Security, Threat Analysis, Web Vulnerabilities), and Data & AI (Pandas/NumPy, Anomaly Detection, Generative AI, Statistics/ML). Every skill maps directly to a real project or course outcome.`
+  },
+  {
+    keys:['goal','future','plan','aim','vision','aspiration','next','where going','ambition'],
+    ans:`Arav's target is graduate-level mastery in Autonomous Systems Security — the intersection of robotics and defensive cybersecurity. The idea is that as autonomous machines proliferate, securing them becomes critical work. By Year 3 of the IIT Madras BS, he plans to be doing original research in this space, combining ROS2 systems knowledge with formal threat modelling for autonomous agents.`
+  },
+  {
+    keys:['contact','email','reach','hire','collaborate','work','available','open to'],
+    ans:`Arav is open to collaborations, internships, and project partnerships. Best way to reach him is aaravraj2986@gmail.com — or check his GitHub at github.com/aaravraj500. He's particularly interested in projects at the intersection of robotics, security, or data science.`
+  },
+  {
+    keys:['who','about','arav','introduce','background','story','yourself','tell me about'],
+    ans:`Arav Raj is a CS engineering student from Bokaro, Jharkhand, India, building at the intersection of autonomous systems, cybersecurity, and data science. He's completed three major courses (Harvard CS50, IIT Kanpur Gen AI, IIT Kanpur Cybersecurity), has two more active, and has shipped three real technical projects. His throughline is making intelligent systems that are also secure — rovers that can't be hijacked, pipelines that detect threats, tools that analyse cryptographic strength.`
+  },
+  {
+    keys:['project','build','made','built','work','portfolio','what made','show'],
+    ans:`Arav has three active projects: the Autonomous Rover (LiDAR SLAM + ROS2 + A* path planning), the Neural Crypt Vault (entropy-based password analyzer — live demo in the Vault section), and the Log-Data Analyzer (Python Pandas threat detection pipeline for server logs). All three are grounded in real technical concepts from his coursework, not tutorial clones.`
+  },
+  {
+    keys:['class 12','12th','cbse','school','high school','painting','art'],
+    ans:`Arav completed Class 12 CBSE with PCM + Computer Science — and scored particularly well in Painting, which shows up in the attention to visual design on this very portfolio. The combination of technical depth and aesthetic sensibility is pretty rare in the CS world.`
+  },
+  {
+    keys:['bokaro','jharkhand','india','location','where','city'],
+    ans:`Arav is based in Bokaro, Jharkhand, India. He's doing all of this — five concurrent programmes, three projects, and the IIT Madras BS degree — from there. That context matters: none of this is riding on campus resources or a comfortable ecosystem. It's self-directed.`
+  },
+];
 
-FACTS ABOUT ARAV:
-- Name: Arav Raj | Email: aaravraj2986@gmail.com | GitHub: github.com/aaravraj500
-- Location: Bokaro, Jharkhand, India
-- Background: Completed Class 12 CBSE (PCM+CS), scored highly in Painting
-- Courses COMPLETED: Harvard CS50 Introduction to Computer Science, IIT Kanpur Generative AI, IIT Kanpur Cybersecurity
-- Courses IN PROGRESS: Harvard CS50 Introduction to Cybersecurity (~70%), IIT Madras BS in Data Science Year 1 (~25%)
-- PROJECTS:
-  1. Autonomous Rover: LiDAR-based SLAM navigation in ROS2/C++, A* path planning, embedded systems
-  2. Neural Crypt Vault: Entropy-logic password analyzer in JavaScript, estimates crack time under 10B/sec brute force
-  3. Log-Data Analyzer: Python Pandas pipeline detecting DDoS, brute-force, and anomaly patterns in server logs
-- Skills: Python (80%), C/C++ (65%), JS (60%), SQL (65%), Bash (50%), ROS2 (70%), LiDAR/SLAM (65%), Cryptography (70%), Pandas/NumPy (72%)
-- Future goal: Graduate-level mastery in Autonomous Systems Security
-
-Keep answers concise (2-4 sentences max), technical and enthusiastic. Speak as if you know Arav personally. If asked something outside this scope, say you can only answer questions about Arav and redirect.`;
-
-async function callClaude(question){
-  const res=await fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({
-      model:'claude-sonnet-4-6',
-      max_tokens:1000,
-      system:PERSONA,
-      messages:[{role:'user',content:question}]
-    })
-  });
-  const data=await res.json();
-  return data.content?.[0]?.text||'Connection error. Try again.';
+function localAnswer(q){
+  const lower=q.toLowerCase();
+  let best=null,bestScore=0;
+  for(const e of KB){
+    let score=0;
+    for(const k of e.keys){if(lower.includes(k))score+=k.split(' ').length;}
+    if(score>bestScore){bestScore=score;best=e;}
+  }
+  if(best&&bestScore>0)return best.ans;
+  return `Good question — I'm tuned specifically to answer things about Arav's projects, skills, courses, and background. Try asking about the Autonomous Rover, Neural Crypt Vault, IIT Madras BS, or his cybersecurity work. Or just email him directly at aaravraj2986@gmail.com.`;
 }
 
-function typeOut(el,text,speed=14){
+function typeOut(el,text,speed=13){
   el.textContent='';let i=0;
   const t=setInterval(()=>{
     el.textContent+=text[i];i++;
@@ -945,7 +996,7 @@ function typeOut(el,text,speed=14){
   },speed);
 }
 
-async function askAI(q){
+function askAI(q){
   const inp=document.getElementById('aiinp');
   const log=document.getElementById('ailog');
   const btn=document.getElementById('aibtn');
@@ -954,14 +1005,10 @@ async function askAI(q){
   inp.value='';
   btn.classList.add('aisending');
   const uDiv=document.createElement('div');uDiv.className='aimsg-u';uDiv.textContent=question;log.appendChild(uDiv);
-  const aDiv=document.createElement('div');aDiv.className='aimsg-a';
-  const thinking=document.createElement('span');thinking.textContent='...';thinking.style.opacity='.4';
-  aDiv.appendChild(thinking);log.appendChild(aDiv);log.scrollTop=99999;
-  try{
-    const ans=await callClaude(question);
-    aDiv.innerHTML='';typeOut(aDiv,ans);
-  }catch(e){aDiv.innerHTML='<span style="color:var(--c4)">Connection error. Check API key.</span>';}
-  btn.classList.remove('aisending');
+  const aDiv=document.createElement('div');aDiv.className='aimsg-a';log.appendChild(aDiv);
+  log.scrollTop=99999;
+  const ans=localAnswer(question);
+  setTimeout(()=>{typeOut(aDiv,ans);btn.classList.remove('aisending');},180);
 }
 document.getElementById('aibtn').addEventListener('click',()=>askAI());
 document.getElementById('aiinp').addEventListener('keydown',e=>{if(e.key==='Enter')askAI()});
